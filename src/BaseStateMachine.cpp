@@ -1,7 +1,10 @@
-#include "../include/BaseStateManager.hpp"
-#include "../include/BaseStateManager.hpp"
+#include "../include/BaseStateMachine.hpp"
 
-void BaseStateManager::SetState(BaseState* state)
+BaseStateMachine::BaseStateMachine() : m_current_state(nullptr)
+{
+}
+
+void BaseStateMachine::SetState(BaseState* state)
 {
 	if (m_current_state != nullptr)
 	{
@@ -16,7 +19,7 @@ void BaseStateManager::SetState(BaseState* state)
 	}
 }
 
-void BaseStateManager::OnUpdate(sf::RenderWindow& window, float deltaTime)
+void BaseStateMachine::OnUpdate(sf::RenderWindow& window, float deltaTime)
 {
 	if (m_current_state != nullptr)
 	{
@@ -24,7 +27,7 @@ void BaseStateManager::OnUpdate(sf::RenderWindow& window, float deltaTime)
 	}
 }
 
-void BaseStateManager::OnRender(sf::RenderWindow& window)
+void BaseStateMachine::OnRender(sf::RenderWindow& window)
 {
 	if (m_current_state != nullptr)
 	{

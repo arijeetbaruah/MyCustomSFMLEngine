@@ -1,12 +1,29 @@
 #ifndef BASESCENEMANAGER_H
 #define BASESCENEMANAGER_H
 
-#include "./BaseStateManager.hpp";
+#include <unordered_map>
+#include "./BaseStateMachine.hpp";
 
-class SceneStateManager : public BaseStateManager
+class Game;
+class BaseState;
+
+const std::string MAINMENUSCENE = "MainMenu";
+const std::string GAMESCENE = "Game";
+
+enum class Scene
+{
+	MainMenu,
+	Game
+};
+
+class SceneStateManager : public BaseStateMachine
 {
 public:
-	SceneStateManager();
+	SceneStateManager(Game* game);
+	void SwitchScene(Scene scene);
+
+protected:
+	std::unordered_map<Scene, BaseState*> stateMap;
 };
 
 #endif // !BASESCENEMANAGER_H

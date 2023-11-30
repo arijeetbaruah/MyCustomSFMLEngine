@@ -3,9 +3,10 @@
 
 #include "./BaseState.hpp";
 
-class BaseStateManager
+class BaseStateMachine
 {
 public:
+	BaseStateMachine();
 	void SetState(BaseState* state);
 	virtual void OnUpdate(sf::RenderWindow& window, float deltaTime);
 	virtual void OnRender(sf::RenderWindow& window);

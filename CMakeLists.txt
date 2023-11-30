@@ -12,13 +12,19 @@ FetchContent_Declare(GLM
     GIT_REPOSITORY https://github.com/g-truc/glm.git)
 FetchContent_MakeAvailable(SFML GLM)
 
-file(GLOB_RECURSE HEADERS "include/*.h")
-file(GLOB_RECURSE HEADERS_PP "include/*.hpp")
-file(GLOB_RECURSE SOURCES "src/*.cpp")
+file(GLOB_RECURSE SOURCES
+    ${CMAKE_SOURCE_DIR}/src/*.c
+    ${CMAKE_SOURCE_DIR}/src/*.cpp
+)
 
-include_directories("src")
+file(GLOB_RECURSE HEADERS
+    ${CMAKE_SOURCE_DIR}/include/*.h
+    ${CMAKE_SOURCE_DIR}/include/*.hpp
+)
 
-add_executable(CMakeSFMLProject ${HEADERS} ${HEADERS_PP} ${SOURCES})
+include_directories(${CMAKE_SOURCE_DIR}/include)
+
+add_executable(CMakeSFMLProject ${HEADERS} ${SOURCES})
 target_link_libraries(CMakeSFMLProject PRIVATE sfml-graphics)
 target_link_libraries(CMakeSFMLProject PRIVATE glm::glm)
 target_compile_features(CMakeSFMLProject PRIVATE cxx_std_17)

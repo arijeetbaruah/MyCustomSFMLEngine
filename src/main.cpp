@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "../include/Game.hpp"
+#include "../include/Logger.hpp"
 #include "../include/SceneStateManager.hpp"
 
 int main()
@@ -7,6 +8,7 @@ int main()
 	auto window = sf::RenderWindow{ { 1920u, 1080u }, "CMake SFML Project" };
 	window.setFramerateLimit(144);
 	Game* game = Game::GetInstance();
+	Logger::GetInstance()->setLogLevel(LogLevel::DEBUG);
 
 	sf::Clock clock;
 	while (window.isOpen())

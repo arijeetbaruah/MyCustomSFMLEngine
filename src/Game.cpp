@@ -3,12 +3,17 @@
 
 Game::Game()
 {
-	m_sceneStateManager = new SceneStateManager();
+	m_sceneStateManager = new SceneStateManager(this);
 }
 
 void Game::AddEntity(Entity* entity)
 {
 	m_entities.emplace(entity->GetID(), entity);
+}
+
+void Game::RemoveEntity(Entity* entity)
+{
+	m_entities.erase(entity->GetID());
 }
 
 void Game::Update(sf::RenderWindow& window, float deltaTime)

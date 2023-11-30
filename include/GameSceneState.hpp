@@ -1,17 +1,16 @@
-#ifndef MAINMENUSCENESTATE_H
-#define MAINMENUSCENESTATE_H
+#ifndef GAMESCENESTATE_H
+#define GAMESCENESTATE_H
 
 #include "./BaseState.hpp";
 
 class Game;
-class Button;
 class BaseStateMachine;
+class Player;
 
-class MainMenuSceneState : public BaseState
+class GameSceneState : public BaseState
 {
 public:
-	MainMenuSceneState(Game* game, BaseStateMachine* stateMachine);
-	~MainMenuSceneState();
+	GameSceneState(Game* game, BaseStateMachine* stateMachine);
 
 	void OnStart() override;
 	void OnUpdate(sf::RenderWindow& window, float deltaTime) override;
@@ -19,8 +18,7 @@ public:
 	void OnExit() override;
 
 protected:
-	Button* playBtn;
-	Button* exitBtn;
+	Player* m_player;
 };
 
 #endif // !MAINMENUSCENESTATE_H

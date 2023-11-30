@@ -17,6 +17,7 @@ public:
 	Game();
 
 	void AddEntity(Entity* entity);
+	void RemoveEntity(Entity* entity);
 	void Update(sf::RenderWindow& window, float deltaTime);
 	void Draw(sf::RenderWindow& window);
 };

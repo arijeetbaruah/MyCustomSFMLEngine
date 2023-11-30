@@ -17,8 +17,10 @@ public:
 
 	std::string GetID();
 
-	virtual void Update(sf::RenderWindow& window, float deltaTime) = 0;
+	virtual void Update(sf::RenderWindow& window, float deltaTime);
 	virtual void Render(sf::RenderWindow& window);
+
+	Transform* GetTransform() const;
 };
 
 #endif // !ENTITY_H

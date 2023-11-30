@@ -23,7 +23,21 @@ std::string Entity::GetID()
 	return m_id;
 }
 
+void Entity::Update(sf::RenderWindow& window, float deltaTime)
+{
+	auto pos = m_transform->GetPosition();
+	auto size = m_transform->GetSize();
+	m_sprite.setPosition(pos.x, pos.y);
+	m_sprite.setRotation(m_transform->GetRotation());
+	m_sprite.setScale(size.x, size.y);
+}
+
 void Entity::Render(sf::RenderWindow& window)
 {
 	window.draw(m_sprite);
+}
+
+Transform* Entity::GetTransform() const
+{
+	return m_transform;
 }

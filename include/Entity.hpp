@@ -20,6 +20,9 @@ public:
 
 	virtual void Update(sf::RenderWindow& window, float deltaTime);
 	virtual void Render(sf::RenderWindow& window);
+	virtual void OnCollision(Entity* other) {}
+
+	sf::FloatRect GetBounds();
 
 	Transform* GetTransform() const;
 };

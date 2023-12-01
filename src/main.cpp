@@ -22,7 +22,7 @@ int main()
 			}
 		}
 
-		game->Update(window, clock.getElapsedTime().asSeconds());
+		game->Update(window, clock.restart().asSeconds());
 
 		window.clear();
 		game->Draw(window);

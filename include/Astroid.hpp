@@ -11,6 +11,7 @@ public:
 	Astroid(std::string id, std::string texture, const glm::vec2& pos);
 	void Update(sf::RenderWindow& window, float deltaTime);
 	void Render(sf::RenderWindow& window);
+	void OnCollision(Entity* other) override;
 };
 
 class AstroidFactory

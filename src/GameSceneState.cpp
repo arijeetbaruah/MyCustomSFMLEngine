@@ -6,6 +6,8 @@
 #include "../include/Astroid.hpp"
 #include "../include/Constants.hpp"
 
+const float BG_SPEED = 100.f;
+
 GameSceneState::GameSceneState(Game* game, BaseStateMachine* stateMachine) : BaseState(game, stateMachine), m_player(nullptr), m_astroid(nullptr)
 {
 
@@ -41,11 +43,11 @@ void GameSceneState::OnStart()
 void GameSceneState::OnUpdate(sf::RenderWindow& window, float deltaTime)
 {
 
+
 }
 
 void GameSceneState::OnRender(sf::RenderWindow& window)
 {
-
 }
 
 void GameSceneState::OnExit()

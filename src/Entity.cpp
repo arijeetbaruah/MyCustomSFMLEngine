@@ -1,13 +1,13 @@
 #include "../include/Entity.hpp"
 #include "../include/ResourceManager.hpp"
+#include "../include/Constants.hpp"
 
 Entity::Entity(std::string id, std::string texture, const glm::vec2& position) : m_id(id)
 {
+	m_transform = new Transform(position);
 	if (ResourceManager::GetInstance()->GetTexture(texture, m_texture))
 	{
 		m_sprite.setTexture(m_texture);
-
-		m_transform = new Transform(position);
 
 		auto size = m_texture.getSize();
 		m_sprite.setOrigin(size.x / 2.f, size.y / 2.f);
@@ -31,6 +31,27 @@ void Entity::Update(sf::RenderWindow& window, float deltaTime)
 {
 	auto pos = m_transform->GetPosition();
 	auto size = m_transform->GetSize();
+
+	if (pos.x < 0)
+	{
+		pos.x = window.getSize().x;
+	}
+	else
+	{
+		pos.x = std::fmodf(pos.x, window.getSize().x);
+	}
+
+	if (pos.y < 0)
+	{
+		pos.y = window.getSize().y;
+	}
+	else
+	{
+		pos.y = std::fmodf(pos.y, window.getSize().y);
+	}
+
+	m_transform->SetPosition(pos);
+
 	m_sprite.setPosition(pos.x, pos.y);
 	m_sprite.setRotation(m_transform->GetRotation());
 	m_sprite.setScale(size.x, size.y);
@@ -39,6 +60,16 @@ void Entity::Update(sf::RenderWindow& window, float deltaTime)
 void Entity::Render(sf::RenderWindow& window)
 {
 	window.draw(m_sprite);
+}
+
+sf::FloatRect Entity::GetBounds()
+{
+	sf::FloatRect rect = m_sprite.getGlobalBounds();
+
+	rect.width *= m_transform->GetSize().x;
+	rect.height *= m_transform->GetSize().y;
+
+	return rect;
 }
 
 Transform* Entity::GetTransform() const

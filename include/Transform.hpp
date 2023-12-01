@@ -21,6 +21,11 @@ public:
 
 	void SetSize(const glm::vec2 size);
 	glm::vec2 GetSize() const;
+
+	void Move(const glm::vec2 movement);
+	void Rotate(float rotation);
+
+	glm::vec2 GetForward() const;
 };
 
 #endif // !TRANSFORM_H

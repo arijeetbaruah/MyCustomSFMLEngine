@@ -8,19 +8,28 @@
 
 MainMenuSceneState::MainMenuSceneState(Game* game, BaseStateMachine* stateMachine) : BaseState(game, stateMachine)
 {
-	playBtn = (new ButtonFactory("playBtn", "Play"))
+	ButtonFactory* playBtnFactory = new ButtonFactory("playBtn", "Play");
+	ButtonFactory* exitBtnFactory = new ButtonFactory("exitBtn", "Exit");
+
+	playBtn = playBtnFactory
 		->SetPosition(glm::vec2(1920u / 2, 300))
 		->SetSize(glm::vec2(100, 50))
 		->SetIdleColor(sf::Color::Blue)
 		->SetHoverColor(sf::Color::Red)
 		->Create();
 
-	exitBtn = (new ButtonFactory("exitBtn", "Exit"))
+	exitBtn = exitBtnFactory
 		->SetPosition(glm::vec2(1920u / 2, 500))
 		->SetSize(glm::vec2(100, 50))
 		->SetIdleColor(sf::Color::Blue)
 		->SetHoverColor(sf::Color::Red)
 		->Create();
+
+	delete playBtnFactory;
+	delete exitBtnFactory;
+
+	playBtnFactory = nullptr;
+	exitBtnFactory = nullptr;
 }
 
 MainMenuSceneState::~MainMenuSceneState()

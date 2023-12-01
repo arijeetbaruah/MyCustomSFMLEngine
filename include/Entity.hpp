@@ -10,9 +10,10 @@ class Entity
 protected:
 	std::string m_id;
 	sf::Sprite m_sprite;
+	sf::Texture m_texture;
 	Transform* m_transform;
 public:
-	Entity(std::string id, const sf::Texture& texture, const glm::vec2& pos);
+	Entity(std::string id, std::string texture, const glm::vec2& pos);
 	virtual ~Entity();
 
 	std::string GetID();

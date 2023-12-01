@@ -1,14 +1,18 @@
 #include "../include/Entity.hpp"
+#include "../include/ResourceManager.hpp"
 
-Entity::Entity(std::string id, const sf::Texture& texture, const glm::vec2& position) : m_id(id)
+Entity::Entity(std::string id, std::string texture, const glm::vec2& position) : m_id(id)
 {
-	m_sprite.setTexture(texture);
+	if (ResourceManager::GetInstance()->GetTexture(texture, m_texture))
+	{
+		m_sprite.setTexture(m_texture);
 
-	m_transform = new Transform(position);
+		m_transform = new Transform(position);
 
-	auto size = texture.getSize();
-	m_sprite.setOrigin(size.x / 2.f, size.y / 2.f);
-	m_sprite.setPosition(position.x, position.y);
+		auto size = m_texture.getSize();
+		m_sprite.setOrigin(size.x / 2.f, size.y / 2.f);
+		m_sprite.setPosition(position.x, position.y);
+	}
 }
 
 Entity::~Entity()

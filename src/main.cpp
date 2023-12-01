@@ -2,10 +2,11 @@
 #include "../include/Game.hpp"
 #include "../include/Logger.hpp"
 #include "../include/SceneStateManager.hpp"
+#include "../include/Constants.hpp"
 
 int main()
 {
-	auto window = sf::RenderWindow{ { 1920u, 1080u }, "CMake SFML Project" };
+	auto window = sf::RenderWindow{ { SCREEN_WIDTH, SCREEN_HEIGHT }, "CMake SFML Project" };
 	window.setFramerateLimit(144);
 	Game* game = Game::GetInstance();
 	Logger::GetInstance()->setLogLevel(LogLevel::DEBUG);

@@ -6,6 +6,7 @@
 class Game;
 class BaseStateMachine;
 class Player;
+class Astroid;
 
 class GameSceneState : public BaseState
 {
@@ -19,6 +20,10 @@ public:
 
 protected:
 	Player* m_player;
+	Astroid* m_astroid;
+
+	sf::Texture m_playerTexture;
+	sf::Texture m_astroidTexture;
 };
 
 #endif // !MAINMENUSCENESTATE_H

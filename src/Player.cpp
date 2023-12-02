@@ -42,23 +42,12 @@ void Player::Render(sf::RenderWindow& window)
 	Entity::Render(window);
 }
 
-PlayerFactory::PlayerFactory(std::string id) : m_id(id), m_position(0, 0)
+void Player::OnCollision(BaseEntity* other)
 {
+	m_OnDeath();
 }
 
-PlayerFactory* PlayerFactory::SetPosition(glm::vec2 position)
+void Player::SetOnDeath(std::function<void()> OnDeath)
 {
-	m_position = position;
-	return this;
-}
-
-PlayerFactory* PlayerFactory::SetTexture(std::string texture)
-{
-	m_texture = texture;
-	return this;
-}
-
-Player* PlayerFactory::Create()
-{
-	return new Player(m_id, m_texture, m_position);
+	m_OnDeath = OnDeath;
 }

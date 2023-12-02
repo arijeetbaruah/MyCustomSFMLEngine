@@ -6,14 +6,15 @@ Game::Game()
 	m_sceneStateManager = new SceneStateManager(this);
 }
 
-void Game::AddEntity(Entity* entity)
+void Game::AddEntity(BaseEntity* entity)
 {
+	entity->SetGame(this);
 	m_entities.emplace(entity->GetID(), entity);
 }
 
-void Game::RemoveEntity(Entity* entity)
+void Game::RemoveEntity(BaseEntity* entity)
 {
-	m_entities.erase(entity->GetID());
+	m_entityToDelete.push_back(entity);
 }
 
 void Game::Update(sf::RenderWindow& window, float deltaTime)
@@ -36,6 +37,8 @@ void Game::Update(sf::RenderWindow& window, float deltaTime)
 			}
 		}
 	}
+
+	std::remove_if(m_entityToDelete.begin(), m_entityToDelete.end(), [](BaseEntity* entity) { return true; });
 }
 
 void Game::Draw(sf::RenderWindow& window)

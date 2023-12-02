@@ -6,6 +6,7 @@
 class Game;
 class BaseStateMachine;
 class Player;
+class Explosion;
 class Astroid;
 
 class GameSceneState : public BaseState
@@ -24,6 +25,8 @@ protected:
 
 	sf::Texture m_playerTexture;
 	sf::Texture m_astroidTexture;
+
+	void OnPlayerDeath();
 };
 
 #endif // !MAINMENUSCENESTATE_H

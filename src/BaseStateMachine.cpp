@@ -1,6 +1,6 @@
 #include "../include/BaseStateMachine.hpp"
 
-BaseStateMachine::BaseStateMachine() : m_current_state(nullptr)
+BaseStateMachine::BaseStateMachine(Game* game) : m_current_state(nullptr), m_game(game)
 {
 }
 

@@ -1,23 +1,25 @@
-#ifndef ENTITY_H
-#define ENTITY_H
+#ifndef EXPLOSION_H
+#define EXPLOSION_H
 
 #include <SFML/Graphics.hpp>
 #include <glm/vec2.hpp>
 #include "./Transform.hpp"
 #include "./BaseEntity.hpp"
 
-class Game;
-
-class Entity : public BaseEntity
+class Explosion : public BaseEntity
 {
 protected:
 	std::string m_id;
 	sf::Sprite m_sprite;
+	sf::IntRect m_frame;
 	sf::Texture m_texture;
 	Transform* m_transform;
+
+	float m_timer;
+	float m_timer_counter;
 public:
-	Entity(std::string id, std::string texture, const glm::vec2& pos);
-	virtual ~Entity();
+	Explosion(std::string id, std::string texture, const glm::vec2& pos);
+	~Explosion();
 
 	std::string GetID();
 
@@ -26,9 +28,13 @@ public:
 	virtual void OnCollision(BaseEntity* other) {}
 
 	sf::FloatRect GetBounds();
+	float GetTimerCounter() const
+	{
+		return m_timer_counter;
+	}
 
 	Transform* GetTransform() const;
 };
 
-#endif // !ENTITY_H
+#endif // !EXPLOSION_H
 

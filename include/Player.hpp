@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include <SFML/Graphics.hpp>
 #include "./Entity.hpp"
+#include <functional>
 
 class Player : public Entity
 {
@@ -12,21 +13,13 @@ public:
 	void Update(sf::RenderWindow& window, float deltaTime);
 	void Render(sf::RenderWindow& window);
 
+	void OnCollision(BaseEntity* other) override;
+
+	void SetOnDeath(std::function<void()> OnDeath);
+
 private:
 	bool m_boosting;
-};
-
-class PlayerFactory
-{
-public:
-	PlayerFactory(std::string id);
-	PlayerFactory* SetPosition(glm::vec2 position);
-	PlayerFactory* SetTexture(std::string texture);
-	Player* Create();
-protected:
-	std::string m_id;
-	glm::vec2 m_position;
-	std::string m_texture;
+	std::function<void()> m_OnDeath;
 };
 
 #endif // !PLAYER_H

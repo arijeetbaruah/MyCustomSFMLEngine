@@ -3,7 +3,7 @@
 #include "../include/MainMenuSceneState.hpp"
 #include "../include/GameSceneState.hpp"
 
-SceneStateManager::SceneStateManager(Game* game)
+SceneStateManager::SceneStateManager(Game* game) : BaseStateMachine(game)
 {
 	stateMap.emplace(Scene::MainMenu, new MainMenuSceneState(game, this));
 	stateMap.emplace(Scene::Game, new GameSceneState(game, this));

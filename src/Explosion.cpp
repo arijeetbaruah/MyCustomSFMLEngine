@@ -1,35 +1,60 @@
-#include "../include/Entity.hpp"
+#include "../include/Explosion.hpp"
 #include "../include/ResourceManager.hpp"
 #include "../include/Constants.hpp"
 
-Entity::Entity(std::string id, std::string texture, const glm::vec2& position) : m_id(id)
+const int Duration = 2;
+
+Explosion::Explosion(std::string id, std::string texture, const glm::vec2& position) : m_id(id), m_timer(0), m_timer_counter(0)
 {
 	m_transform = new Transform(position);
 	if (ResourceManager::GetInstance()->GetTexture(texture, m_texture))
 	{
 		m_texture.setSmooth(true);
-		m_sprite.setTexture(m_texture);
+
+		auto rectSize = m_texture.getSize();
+		m_frame = sf::IntRect(0, 0, rectSize.x / 8, rectSize.y / 4);
+
+		m_sprite = sf::Sprite(m_texture, m_frame);
 
 		auto size = m_texture.getSize();
-		m_sprite.setOrigin(size.x / 2.f, size.y / 2.f);
+		m_sprite.setOrigin(m_frame.width / 2.f, m_frame.height / 2.f);
 		m_sprite.setPosition(position.x, position.y);
 	}
 }
 
-Entity::~Entity()
+Explosion::~Explosion()
 {
 	delete m_transform;
 
 	m_transform = nullptr;
 }
 
-std::string Entity::GetID()
+std::string Explosion::GetID()
 {
 	return m_id;
 }
 
-void Entity::Update(sf::RenderWindow& window, float deltaTime)
+void Explosion::Update(sf::RenderWindow& window, float deltaTime)
 {
+	
+	if (m_timer >= 0.3f)
+	{
+		if (m_timer_counter == 8)
+		{
+			return;
+		}
+		else
+		{
+			m_frame.left += m_frame.width;
+			m_timer_counter++;
+		}
+
+		m_timer = 0;
+	}
+
+	m_timer += deltaTime;
+	m_sprite.setTextureRect(m_frame);
+
 	auto pos = m_transform->GetPosition();
 	auto size = m_transform->GetSize();
 
@@ -58,22 +83,22 @@ void Entity::Update(sf::RenderWindow& window, float deltaTime)
 	m_sprite.setScale(size.x, size.y);
 }
 
-void Entity::Render(sf::RenderWindow& window)
+void Explosion::Render(sf::RenderWindow& window)
 {
 	window.draw(m_sprite);
 }
 
-sf::FloatRect Entity::GetBounds()
+sf::FloatRect Explosion::GetBounds()
 {
 	sf::FloatRect rect = m_sprite.getGlobalBounds();
 
-	rect.width *= m_transform->GetSize().x;
-	rect.height *= m_transform->GetSize().y;
+	rect.width *= m_frame.width;
+	rect.height *= m_frame.height;
 
 	return rect;
 }
 
-Transform* Entity::GetTransform() const
+Transform* Explosion::GetTransform() const
 {
 	return m_transform;
 }

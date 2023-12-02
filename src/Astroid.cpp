@@ -22,9 +22,8 @@ void Astroid::Render(sf::RenderWindow& window)
 	Entity::Render(window);
 }
 
-void Astroid::OnCollision(Entity* other)
+void Astroid::OnCollision(BaseEntity* other)
 {
-	Logger::GetInstance()->log(LogLevel::INFO, "Collision: " + other->GetID());
 }
 
 AstroidFactory::AstroidFactory(std::string texture) : m_position(0, 0)

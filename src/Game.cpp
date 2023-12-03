@@ -12,9 +12,14 @@ void Game::AddEntity(BaseEntity* entity)
 	m_entities.emplace(entity->GetID(), entity);
 }
 
-void Game::RemoveEntity(BaseEntity* entity)
+void Game::DestroyEntity(BaseEntity* entity)
 {
 	m_entityToDelete.push_back(entity);
+}
+
+void Game::RemoveEntity(BaseEntity* entity)
+{
+	m_entities.erase(entity->GetID());
 }
 
 void Game::Update(sf::RenderWindow& window, float deltaTime)
@@ -38,6 +43,10 @@ void Game::Update(sf::RenderWindow& window, float deltaTime)
 		}
 	}
 
+	for (auto entity : m_entityToDelete)
+	{
+		m_entities.erase(entity->GetID());
+	}
 	std::remove_if(m_entityToDelete.begin(), m_entityToDelete.end(), [](BaseEntity* entity) { return true; });
 }
 

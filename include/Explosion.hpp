@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <glm/vec2.hpp>
+#include <functional>
 #include "./Transform.hpp"
 #include "./BaseEntity.hpp"
 
@@ -15,6 +16,7 @@ protected:
 	sf::Texture m_texture;
 	Transform* m_transform;
 
+	std::function<void()> m_OnAnimation;
 	float m_timer;
 	float m_timer_counter;
 public:
@@ -23,9 +25,11 @@ public:
 
 	std::string GetID();
 
-	virtual void Update(sf::RenderWindow& window, float deltaTime);
-	virtual void Render(sf::RenderWindow& window);
-	virtual void OnCollision(BaseEntity* other) {}
+	void Update(sf::RenderWindow& window, float deltaTime) override;
+	void Render(sf::RenderWindow& window) override;
+	void OnCollision(BaseEntity* other) override {}
+
+	void SetOnAnimation(std::function<void()> OnAnimation);
 
 	sf::FloatRect GetBounds();
 	float GetTimerCounter() const

@@ -1,10 +1,11 @@
 #include "../include/Explosion.hpp"
 #include "../include/ResourceManager.hpp"
 #include "../include/Constants.hpp"
+#include "../include/Game.hpp"
 
 const int Duration = 2;
 
-Explosion::Explosion(std::string id, std::string texture, const glm::vec2& position) : m_id(id), m_timer(0), m_timer_counter(0)
+Explosion::Explosion(std::string id, std::string texture, const glm::vec2& position) : BaseEntity(), m_id(id), m_timer(0), m_timer_counter(0)
 {
 	m_transform = new Transform(position);
 	if (ResourceManager::GetInstance()->GetTexture(texture, m_texture))
@@ -35,12 +36,13 @@ std::string Explosion::GetID()
 }
 
 void Explosion::Update(sf::RenderWindow& window, float deltaTime)
-{
-	
+{	
 	if (m_timer >= 0.3f)
 	{
 		if (m_timer_counter == 8)
 		{
+			m_OnAnimation();
+			m_game->DestroyEntity(this);
 			return;
 		}
 		else
@@ -101,4 +103,9 @@ sf::FloatRect Explosion::GetBounds()
 Transform* Explosion::GetTransform() const
 {
 	return m_transform;
+}
+
+void Explosion::SetOnAnimation(std::function<void()> OnAnimation)
+{
+	m_OnAnimation = OnAnimation;
 }

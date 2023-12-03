@@ -6,6 +6,7 @@
 class Game;
 class BaseStateMachine;
 class Player;
+class PlayerFactory;
 class Explosion;
 class Astroid;
 
@@ -13,6 +14,7 @@ class GameSceneState : public BaseState
 {
 public:
 	GameSceneState(Game* game, BaseStateMachine* stateMachine);
+	~GameSceneState();
 
 	void OnStart() override;
 	void OnUpdate(sf::RenderWindow& window, float deltaTime) override;
@@ -22,11 +24,15 @@ public:
 protected:
 	Player* m_player;
 	Astroid* m_astroid;
+	Explosion* m_player_explosion;
 
-	sf::Texture m_playerTexture;
-	sf::Texture m_astroidTexture;
+	PlayerFactory* playerFactory;
 
 	void OnPlayerDeath();
+	void StartNewLevel();
+
+	bool m_isPlayerDead;
+	float m_playerRespawn;
 };
 
 #endif // !MAINMENUSCENESTATE_H

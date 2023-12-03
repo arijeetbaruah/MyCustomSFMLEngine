@@ -2,7 +2,7 @@
 #define GAME_H
 
 #include <unordered_map>
-#include <vector>
+#include <unordered_map>
 #include <SFML/Graphics.hpp>
 #include "./BaseEntity.hpp"
 #include "Singleton.hpp"
@@ -20,6 +20,7 @@ public:
 
 	void AddEntity(BaseEntity* entity);
 	void RemoveEntity(BaseEntity* entity);
+	void DestroyEntity(BaseEntity* entity);
 	void Update(sf::RenderWindow& window, float deltaTime);
 	void Draw(sf::RenderWindow& window);
 };

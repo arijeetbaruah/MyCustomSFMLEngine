@@ -2,7 +2,7 @@
 #include "../include/ResourceManager.hpp"
 #include "../include/Constants.hpp"
 
-Entity::Entity(std::string id, std::string texture, const glm::vec2& position) : m_id(id)
+Entity::Entity(std::string id, std::string texture, const glm::vec2& position) : BaseEntity(), m_id(id)
 {
 	m_transform = new Transform(position);
 	if (ResourceManager::GetInstance()->GetTexture(texture, m_texture))
@@ -30,6 +30,11 @@ std::string Entity::GetID()
 
 void Entity::Update(sf::RenderWindow& window, float deltaTime)
 {
+	if (!GetIsActive())
+	{
+		return;
+	}
+
 	auto pos = m_transform->GetPosition();
 	auto size = m_transform->GetSize();
 
@@ -60,6 +65,11 @@ void Entity::Update(sf::RenderWindow& window, float deltaTime)
 
 void Entity::Render(sf::RenderWindow& window)
 {
+	if (!GetIsActive())
+	{
+		return;
+	}
+
 	window.draw(m_sprite);
 }
 
